@@ -1,2 +1,5 @@
-Test nano editor
-Test nano editor
+# Run this script
+
+```sh
+$ ruby hello.rb
+```
