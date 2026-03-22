@@ -1,0 +1,37 @@
+<% content_for :title, "Лабораторные отчёты" %>
+
+<h1>Лабораторные отчёты</h1>
+
+<% if @lab_reports.empty? %>
+  <p>Пока нет отчётов.</p>
+<% else %>
+<table>
+  <thead>
+    <tr>
+      <th>Студент</th>
+      <th>Заголовок</th>
+      <th>Оценка (ECTS)</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lab_reports.each do |report| %>
+      <tr>
+        <td><%= report.user.last_name %> <%= report.user.first_name %></td>
+        <td><%= report.title %></td>
+        <td><%= report.grade.presence || "—" %></td>
+        <td><%= link_to "Просмотр", report %></td>
+        <td><%= link_to "Изменить", edit_lab_report_path(report) %></td>
+        <td>
+          <%= button_to "Удалить", report, method: :delete,
+                class: "button-to-link",
+                form: { class: "button-to-inline" },
+                onclick: "return confirm('Удалить отчёт?');" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<p><%= link_to "Новый отчёт", new_lab_report_path %></p>

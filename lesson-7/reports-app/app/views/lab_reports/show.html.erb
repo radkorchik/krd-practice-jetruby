@@ -1,0 +1,24 @@
+<% content_for :title, @lab_report.title %>
+
+<h1><%= @lab_report.title %></h1>
+
+<p>
+  <strong>Студент:</strong>
+  <%= @lab_report.user.last_name %> <%= @lab_report.user.first_name %>
+  (<%= @lab_report.user.email %>)
+</p>
+
+<p>
+  <strong>Оценка (ECTS):</strong>
+  <%= @lab_report.grade.presence || "не выставлена" %>
+</p>
+
+<% if @lab_report.description.present? %>
+  <p><strong>Описание:</strong></p>
+  <p><%= simple_format(@lab_report.description) %></p>
+<% end %>
+
+<p>
+  <%= link_to "Изменить", edit_lab_report_path(@lab_report) %> |
+  <%= link_to "К списку", lab_reports_path %>
+</p>

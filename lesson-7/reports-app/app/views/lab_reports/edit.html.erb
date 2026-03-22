@@ -1,0 +1,8 @@
+<% content_for :title, "Редактирование отчёта" %>
+
+<h1>Редактировать отчёт</h1>
+
+<%= render "form", lab_report: @lab_report %>
+
+<%= link_to "Просмотр", @lab_report %> |
+<%= link_to "К списку", lab_reports_path %>
