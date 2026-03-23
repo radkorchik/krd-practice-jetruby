@@ -17,11 +17,11 @@ class LabReportTest < ActiveSupport::TestCase
     user = build_user
     report = LabReport.new(user: user, title: nil, description: "Описание", grade: "A")
     assert_not report.valid?
-    assert_includes report.errors.attribute_names, "title"
+    assert_includes report.errors.attribute_names, :title
 
     report = LabReport.new(user: user, title: "a" * 251, description: "Описание", grade: "A")
     assert_not report.valid?
-    assert_includes report.errors.attribute_names, "title"
+    assert_includes report.errors.attribute_names, :title
   end
 
   test "description length is limited and optional" do
@@ -32,7 +32,7 @@ class LabReportTest < ActiveSupport::TestCase
 
     report = LabReport.new(user: user, title: "Отчёт 1", description: "a" * 501, grade: "A")
     assert_not report.valid?
-    assert_includes report.errors.attribute_names, "description"
+    assert_includes report.errors.attribute_names, :description
   end
 
   test "grade must be an ECTS grade when present" do
@@ -46,12 +46,12 @@ class LabReportTest < ActiveSupport::TestCase
 
     report = LabReport.new(user: user, title: "Отчёт 1", description: nil, grade: "Z")
     assert_not report.valid?
-    assert_includes report.errors.attribute_names, "grade"
+    assert_includes report.errors.attribute_names, :grade
   end
 
   test "belongs_to user is required" do
     report = LabReport.new(title: "Отчёт 1", description: "Описание", grade: "A")
     assert_not report.valid?
-    assert_includes report.errors.attribute_names, "user"
+    assert_includes report.errors.attribute_names, :user
   end
 end
