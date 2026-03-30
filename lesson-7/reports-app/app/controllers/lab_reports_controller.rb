@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class LabReportsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_lab_report, only: %i[show edit update destroy]
 
   def index

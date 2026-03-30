@@ -3,11 +3,15 @@
 require "test_helper"
 
 class LabReportsControllerTest < ActionDispatch::IntegrationTest
+  TEST_PASSWORD = "secret123"
+
   def create_user
     User.create!(
       first_name: "Иван",
       last_name: "Иванов",
-      email: "#{SecureRandom.hex(10)}@example.com"
+      email: "#{SecureRandom.hex(10)}@example.com",
+      password: TEST_PASSWORD,
+      password_confirmation: TEST_PASSWORD
     )
   end
 
@@ -15,8 +19,15 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     LabReport.create!(user: user, title: title, grade: grade, description: description)
   end
 
+  def sign_in(user)
+    post user_session_path, params: { user: { email: user.email, password: TEST_PASSWORD } }
+    follow_redirect!
+  end
+
   test "GET / shows empty state" do
     LabReport.delete_all
+    user = create_user
+    sign_in(user)
     get root_path
 
     assert_response :success
@@ -29,6 +40,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     report1 = create_report(user: user1, title: "Report 1", grade: "A")
     report2 = create_report(user: user2, title: "Report 2", grade: "B")
 
+    sign_in(user1)
     get root_path
 
     assert_response :success
@@ -40,6 +52,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     user = create_user
     report = create_report(user: user, title: "Report 1", grade: "A")
 
+    sign_in(user)
     get lab_report_path(report)
 
     assert_response :success
@@ -51,6 +64,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     user = create_user
     create_report(user: user, title: "Existing", grade: "A")
 
+    sign_in(user)
     get new_lab_report_path
 
     assert_response :success
@@ -59,6 +73,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "POST create creates report with valid params" do
     user = create_user
+    sign_in(user)
 
     assert_difference "LabReport.count", 1 do
       post lab_reports_path,
@@ -80,6 +95,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "POST create does not create report with invalid params" do
     user = create_user
+    sign_in(user)
 
     assert_no_difference "LabReport.count" do
       post lab_reports_path,
@@ -101,6 +117,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     user = create_user
     report = create_report(user: user, title: "Report 1", grade: "A")
 
+    sign_in(user)
     get edit_lab_report_path(report)
 
     assert_response :success
@@ -111,6 +128,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     user = create_user
     report = create_report(user: user, title: "Report 1", grade: "A")
 
+    sign_in(user)
     patch lab_report_path(report),
           params: {
             lab_report: {
@@ -130,6 +148,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     user = create_user
     report = create_report(user: user, title: "Report 1", grade: "A")
 
+    sign_in(user)
     patch lab_report_path(report),
           params: {
             lab_report: {
@@ -149,6 +168,7 @@ class LabReportsControllerTest < ActionDispatch::IntegrationTest
     user = create_user
     report = create_report(user: user, title: "Report 1", grade: "A")
 
+    sign_in(user)
     assert_difference "LabReport.count", -1 do
       delete lab_report_path(report)
     end

@@ -1,0 +1,41 @@
+ru:
+  hello: "Привет мир"
+
+  activerecord:
+    attributes:
+      user:
+        email: "email"
+        first_name: "имя"
+        last_name: "фамилия"
+        password: "пароль"
+      lab_report:
+        user: "студент"
+        user_id: "студент"
+        title: "заголовок"
+        description: "описание"
+        grade: "оценка (ECTS)"
+    errors:
+      messages:
+        blank: "не может быть пустым"
+        taken: "уже занято"
+        invalid: "имеет неверное значение"
+        too_short: "слишком короткое (минимум %{count} символов)"
+        too_long: "слишком длинное (максимум %{count} символов)"
+        confirmation: "не совпадает с подтверждением"
+
+  devise:
+    failure:
+      unauthenticated: "Чтобы продолжить, нужно войти."
+      invalid: "Неверный email или пароль."
+      timeout: "Сессия истекла, пожалуйста, войдите снова."
+      locked: "Аккаунт заблокирован."
+      inactive: "Аккаунт неактивен."
+    sessions:
+      signed_in: "Вы успешно вошли."
+      signed_out: "Вы успешно вышли."
+    registrations:
+      signed_up: "Вы успешно зарегистрировались."
+      updated: "Аккаунт обновлен."
+    passwords:
+      send_instructions: "Инструкции по восстановлению отправлены на email."
+

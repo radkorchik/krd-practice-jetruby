@@ -4,7 +4,13 @@ require "test_helper"
 
 class LabReportTest < ActiveSupport::TestCase
   def build_user
-    User.create!(first_name: "Иван", last_name: "Иванов", email: "lab-#{SecureRandom.hex(6)}@example.com")
+    User.create!(
+      first_name: "Иван",
+      last_name: "Иванов",
+      email: "lab-#{SecureRandom.hex(6)}@example.com",
+      password: "secret123",
+      password_confirmation: "secret123"
+    )
   end
 
   test "valid report is valid" do

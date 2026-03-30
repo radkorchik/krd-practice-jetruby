@@ -4,7 +4,13 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   test "valid user is valid" do
-    user = User.new(first_name: "Иван", last_name: "Иванов", email: "ivanov@example.com")
+    user = User.new(
+      first_name: "Иван",
+      last_name: "Иванов",
+      email: "ivanov@example.com",
+      password: "secret123",
+      password_confirmation: "secret123"
+    )
     assert user.valid?
   end
 
@@ -44,7 +50,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "full_name returns last name and first name" do
-    user = User.create!(first_name: "Иван", last_name: "Иванов", email: "full-name@example.com")
+    user = User.create!(
+      first_name: "Иван",
+      last_name: "Иванов",
+      email: "full-name@example.com",
+      password: "secret123",
+      password_confirmation: "secret123"
+    )
     assert_equal "Иванов Иван", user.full_name
   end
 end

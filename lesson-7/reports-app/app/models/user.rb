@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
+require "devise"
+
 class User < ApplicationRecord
+  extend Devise::Models
+
+  devise :database_authenticatable, :registerable, :validatable
+
   has_many :lab_reports, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 100 }
