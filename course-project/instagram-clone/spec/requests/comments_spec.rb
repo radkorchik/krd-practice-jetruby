@@ -29,7 +29,16 @@ RSpec.describe "Comments", type: :request do
     sign_in_user(other_user)
     comment = post_record.comments.create!(user: author, body: "author")
     delete post_comment_path(post_record, comment)
-    expect(response).to have_http_status(:not_found)
+    expect(response).to redirect_to(post_path(post_record))
+    expect(Comment.exists?(comment.id)).to be(true)
+  end
+
+  it "allows post owner to delete any comment under post" do
+    sign_in_user(author)
+    comment = post_record.comments.create!(user: other_user, body: "to delete")
+    expect {
+      delete post_comment_path(post_record, comment)
+    }.to change(Comment, :count).by(-1)
   end
 
   it "requires authentication" do

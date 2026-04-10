@@ -11,6 +11,7 @@ RSpec.describe Like, type: :model do
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:post) }
+  it { is_expected.to define_enum_for(:reaction).with_values(dislike: -1, like: 1).backed_by_column_of_type(:integer).with_prefix(:reaction) }
 
   it "does not allow duplicate likes for one user and post" do
     described_class.create!(user: user, post: post_record)

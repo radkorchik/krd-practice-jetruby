@@ -1,26 +1,33 @@
-<h2>Вход</h2>
+<div class="card">
+  <h2 class="title">Вход</h2>
+  <p class="subtitle">Войдите в аккаунт, чтобы увидеть ленту и взаимодействовать с постами.</p>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p><%= f.label :email, "Email" %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-row">
+      <%= f.label :email, "Email" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
 
-  <div class="field">
-    <p><%= f.label :password, "Пароль" %></p>
-    <p><%= f.password_field :password, autocomplete: "current-password" %></p>
-  </div>
+    <div class="form-row">
+      <%= f.label :password, "Пароль" %>
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <p><%= f.check_box :remember_me %></p>
-      <p><%= f.label :remember_me, "Запомнить меня" %></p>
+    <% if devise_mapping.rememberable? %>
+      <div class="form-row remember-row">
+        <label>
+          <%= f.check_box :remember_me %>
+          Запомнить меня
+        </label>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Войти" %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Войти" %>
+    <%= render "devise/shared/links" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

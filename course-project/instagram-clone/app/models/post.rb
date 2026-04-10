@@ -6,4 +6,12 @@ class Post < ApplicationRecord
   has_one_attached :image
 
   validates :image, presence: true
+
+  def likes_count
+    likes.reaction_like.count
+  end
+
+  def dislikes_count
+    likes.reaction_dislike.count
+  end
 end

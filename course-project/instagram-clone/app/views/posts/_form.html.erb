@@ -1,7 +1,7 @@
 <%= form_with model: post do |f| %>
   <% if post.errors.any? %>
-    <div>
-      <h3>Ошибки:</h3>
+    <div class="card">
+      <h3 class="title">Ошибки:</h3>
       <ul>
         <% post.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,15 +10,17 @@
     </div>
   <% end %>
 
-  <p>
-    <%= f.label :caption, "Подпись" %><br>
+  <div class="form-row">
+    <%= f.label :caption, "Подпись" %>
     <%= f.text_area :caption, rows: 4 %>
-  </p>
+  </div>
 
-  <p>
-    <%= f.label :image, "Изображение" %><br>
+  <div class="form-row">
+    <%= f.label :image, "Изображение" %>
     <%= f.file_field :image, accept: "image/*" %>
-  </p>
+  </div>
 
-  <p><%= f.submit %></p>
+  <div class="actions">
+    <%= f.submit(post.persisted? ? "Сохранить изменения" : "Опубликовать пост") %>
+  </div>
 <% end %>

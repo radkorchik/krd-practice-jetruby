@@ -9,7 +9,7 @@ RSpec.describe "User flows", type: :system do
     fill_in "Подтверждение пароля", with: "password123"
     click_button "Создать аккаунт"
 
-    expect(page).to have_content("Welcome! You have signed up successfully.")
+    expect(page).to have_content("Добро пожаловать! Регистрация выполнена успешно.")
 
     click_button "Выйти"
     visit new_user_session_path
@@ -29,13 +29,13 @@ RSpec.describe "User flows", type: :system do
     click_link "Новый пост"
     fill_in "Подпись", with: "my first image"
     attach_file "Изображение", Rails.root.join("spec/fixtures/files/test-image.svg")
-    click_button "Create Post"
+    click_button "Опубликовать пост"
 
     expect(page).to have_content("my first image")
 
     click_link "Редактировать"
     fill_in "Подпись", with: "updated caption"
-    click_button "Update Post"
+    click_button "Сохранить изменения"
     expect(page).to have_content("updated caption")
   end
 
@@ -62,9 +62,10 @@ RSpec.describe "User flows", type: :system do
     fill_in "Текст комментария", with: "nice"
     click_button "Добавить комментарий"
     expect(page).to have_content("nice")
-    click_button "Лайк / Дизлайк"
+    click_button "Лайк"
     expect(page).to have_content("Лайки: 1")
-    click_button "Лайк / Дизлайк"
+    click_button "Дизлайк"
     expect(page).to have_content("Лайки: 0")
+    expect(page).to have_content("Дизлайки: 1")
   end
 end

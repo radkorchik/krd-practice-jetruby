@@ -1,13 +1,17 @@
-<h1>Пользователи</h1>
+<h1 class="title">Пользователи</h1>
 
 <% @users.each do |user| %>
-  <p>
-    <%= link_to user.username, user_path(user) %>
+  <div class="card">
+    <strong><%= link_to user.username, user_path(user) %></strong>
     <% if current_user.follows?(user) %>
       <% follow = current_user.active_follows.find_by(followed: user) %>
-      <%= button_to "Отписаться", follow_path(follow), method: :delete, form: { style: "display:inline;" } %>
+      <div class="actions">
+        <%= button_to "Отписаться", follow_path(follow), method: :delete, class: "btn btn-danger", form_class: "inline-form" %>
+      </div>
     <% else %>
-      <%= button_to "Подписаться", follows_path(followed_id: user.id), method: :post, form: { style: "display:inline;" } %>
+      <div class="actions">
+        <%= button_to "Подписаться", follows_path(followed_id: user.id), method: :post, class: "btn", form_class: "inline-form" %>
+      </div>
     <% end %>
-  </p>
+  </div>
 <% end %>

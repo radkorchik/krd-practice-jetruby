@@ -1,16 +1,22 @@
-<h1>Моя лента</h1>
+<h1 class="title">Моя лента</h1>
 
 <% if @posts.empty? %>
-  <p>Лента пока пустая. Подпишитесь на пользователей и создайте пост.</p>
+  <div class="card">Лента пока пустая. Подпишитесь на пользователей и создайте пост.</div>
 <% end %>
 
 <% @posts.each do |post| %>
-  <article style="margin-bottom: 24px;">
-    <p><strong><%= link_to post.user.username, user_path(post.user) %></strong></p>
+  <article class="card">
+    <p class="meta"><strong><%= link_to post.user.username, user_path(post.user) %></strong></p>
     <p><%= post.caption %></p>
     <% if post.image.attached? %>
-      <p><%= image_tag post.image, style: "max-width: 350px;" %></p>
+      <p><%= image_tag post.image, class: "post-image" %></p>
     <% end %>
-    <p>Лайки: <%= post.likes.count %> | <%= link_to "Открыть пост", post_path(post) %></p>
+    <div class="reaction">
+      <span class="badge">Лайки: <%= post.likes_count %></span>
+      <span class="badge">Дизлайки: <%= post.dislikes_count %></span>
+    </div>
+    <div class="actions">
+      <%= link_to "Открыть пост", post_path(post), class: "btn btn-secondary" %>
+    </div>
   </article>
 <% end %>

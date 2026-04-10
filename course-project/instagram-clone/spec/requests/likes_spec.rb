@@ -10,26 +10,36 @@ RSpec.describe "Likes", type: :request do
     p
   end
 
-  it "toggles like and dislike" do
+  it "sets like and then switches to dislike" do
     sign_in_user(user)
 
     post post_like_path(post_record)
-    expect(post_record.likes.where(user: user).exists?).to be(true)
+    reaction = post_record.likes.find_by(user: user)
+    expect(reaction).to be_present
+    expect(reaction.reaction).to eq("like")
 
-    post post_like_path(post_record)
-    expect(post_record.likes.where(user: user).exists?).to be(false)
+    post post_dislike_path(post_record)
+    expect(post_record.likes.find_by(user: user).reaction).to eq("dislike")
   end
 
-  it "shows like count on post page" do
+  it "shows like and dislike counts on post page" do
     sign_in_user(user)
     post post_like_path(post_record)
+    another_user = build_user
+    post_record.likes.create!(user: another_user, reaction: :dislike)
 
     get post_path(post_record)
     expect(response.body).to include("Лайки: 1")
+    expect(response.body).to include("Дизлайки: 1")
   end
 
   it "requires authentication" do
     post post_like_path(post_record)
+    expect(response).to redirect_to(new_user_session_path)
+  end
+
+  it "requires authentication for dislike" do
+    post post_dislike_path(post_record)
     expect(response).to redirect_to(new_user_session_path)
   end
 end

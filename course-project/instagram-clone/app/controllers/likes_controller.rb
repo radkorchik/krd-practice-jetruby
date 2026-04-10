@@ -2,24 +2,31 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
 
-  def create
-    like = @post.likes.find_by(user: current_user)
-    if like
-      like.destroy
-      redirect_to @post, notice: "Лайк снят."
-    else
-      @post.likes.create!(user: current_user)
-      redirect_to @post, notice: "Лайк поставлен."
-    end
+  def like
+    set_reaction(:like)
+    redirect_to @post, notice: "Реакция обновлена."
   end
 
-  def destroy
-    like = @post.likes.find_by(user: current_user)
-    like&.destroy
-    redirect_to @post, notice: "Лайк снят."
+  def dislike
+    set_reaction(:dislike)
+    redirect_to @post, notice: "Реакция обновлена."
   end
 
   private
+
+  def set_reaction(reaction)
+    existing = @post.likes.find_by(user: current_user)
+    if existing&.reaction&.to_sym == reaction
+      existing.destroy!
+      return
+    end
+
+    if existing
+      existing.update!(reaction: reaction)
+    else
+      @post.likes.create!(user: current_user, reaction: reaction)
+    end
+  end
 
   def set_post
     @post = Post.find(params[:post_id])

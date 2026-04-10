@@ -1,10 +1,110 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+:root {
+  --bg: #0f172a;
+  --bg-soft: #111827;
+  --card: #1f2937;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --primary: #22c55e;
+  --danger: #ef4444;
+  --line: #334155;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top right, #1e293b, var(--bg) 40%);
+  color: var(--text);
+}
+
+a { color: #93c5fd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.app-shell { max-width: 1040px; margin: 0 auto; padding: 24px; }
+.app-header {
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+.brand { font-size: 22px; font-weight: 800; letter-spacing: 0.4px; }
+.nav-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.nav-link { padding: 8px 12px; border-radius: 10px; background: #111827; border: 1px solid var(--line); }
+.nav-link--accent { border-color: var(--primary); color: #86efac; }
+
+.page-content { margin-top: 20px; }
+.card {
+  background: rgba(31, 41, 55, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 14px 30px rgba(2, 6, 23, 0.35);
+}
+.title { margin: 0 0 14px 0; font-size: 30px; }
+.subtitle { color: var(--muted); margin-top: -4px; margin-bottom: 14px; }
+.meta { color: var(--muted); font-size: 14px; }
+.post-image { width: 100%; max-width: 520px; border-radius: 12px; border: 1px solid var(--line); }
+
+.form-row { margin-bottom: 12px; }
+label { display: block; margin-bottom: 6px; color: #cbd5e1; font-size: 14px; }
+input[type="text"], input[type="email"], input[type="password"], textarea {
+  width: 100%;
+  background: #0b1220;
+  border: 1px solid #475569;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.btn, input[type="submit"] {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--primary);
+  color: #052e16;
+}
+.btn-secondary { background: #38bdf8; color: #082f49; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
+
+.inline-form { display: inline-block; margin: 0; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+.reaction {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.badge {
+  background: #0b1220;
+  border: 1px solid var(--line);
+  color: #d1d5db;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.flash {
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.flash-notice { background: rgba(34, 197, 94, 0.15); border: 1px solid #166534; }
+.flash-alert { background: rgba(239, 68, 68, 0.16); border: 1px solid #7f1d1d; }
+
+.remember-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}

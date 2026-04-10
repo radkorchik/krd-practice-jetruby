@@ -1,0 +1,48 @@
+ru:
+  hello: "Привет, мир"
+  time:
+    formats:
+      short: "%d.%m.%Y %H:%M"
+  date:
+    formats:
+      short: "%d.%m.%Y"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Ошибка валидации: %{errors}"
+        blank: "не может быть пустым"
+        taken: "уже занято"
+        too_short: "слишком короткое значение (минимум %{count})"
+        too_long: "слишком длинное значение (максимум %{count})"
+    attributes:
+      user:
+        username: "Имя пользователя"
+        email: "Email"
+        password: "Пароль"
+      comment:
+        body: "Комментарий"
+      post:
+        image: "Изображение"
+  errors:
+    messages:
+      not_saved:
+        one: "Не удалось сохранить %{resource}: 1 ошибка."
+        few: "Не удалось сохранить %{resource}: %{count} ошибки."
+        many: "Не удалось сохранить %{resource}: %{count} ошибок."
+  devise:
+    failure:
+      already_authenticated: "Вы уже вошли в систему."
+      unauthenticated: "Чтобы продолжить, войдите или зарегистрируйтесь."
+      invalid: "Неверный email или пароль."
+      not_found_in_database: "Неверный email или пароль."
+    sessions:
+      signed_in: "Вход выполнен успешно."
+      signed_out: "Вы вышли из аккаунта."
+      already_signed_out: "Вы уже вышли из аккаунта."
+    registrations:
+      signed_up: "Добро пожаловать! Регистрация выполнена успешно."
+      updated: "Профиль успешно обновлен."
+      destroyed: "Аккаунт успешно удален."
+    passwords:
+      send_instructions: "Инструкция по восстановлению пароля отправлена на email."
+      updated: "Пароль успешно изменен."

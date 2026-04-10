@@ -14,10 +14,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = current_user.comments.find(params[:id])
-    post = comment.post
-    comment.destroy
-    redirect_to post, notice: "Комментарий удален."
+    comment = Comment.find(params[:id])
+    if comment.user == current_user || comment.post.user == current_user
+      comment.destroy
+      redirect_to comment.post, notice: "Комментарий удален."
+    else
+      redirect_to comment.post, alert: "Удалять этот комментарий нельзя."
+    end
   end
 
   private
