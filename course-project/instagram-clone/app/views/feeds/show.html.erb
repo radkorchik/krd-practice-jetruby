@@ -1,0 +1,16 @@
+<h1>Моя лента</h1>
+
+<% if @posts.empty? %>
+  <p>Лента пока пустая. Подпишитесь на пользователей и создайте пост.</p>
+<% end %>
+
+<% @posts.each do |post| %>
+  <article style="margin-bottom: 24px;">
+    <p><strong><%= link_to post.user.username, user_path(post.user) %></strong></p>
+    <p><%= post.caption %></p>
+    <% if post.image.attached? %>
+      <p><%= image_tag post.image, style: "max-width: 350px;" %></p>
+    <% end %>
+    <p>Лайки: <%= post.likes.count %> | <%= link_to "Открыть пост", post_path(post) %></p>
+  </article>
+<% end %>

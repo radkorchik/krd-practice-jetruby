@@ -1,0 +1,13 @@
+<h1>Пользователи</h1>
+
+<% @users.each do |user| %>
+  <p>
+    <%= link_to user.username, user_path(user) %>
+    <% if current_user.follows?(user) %>
+      <% follow = current_user.active_follows.find_by(followed: user) %>
+      <%= button_to "Отписаться", follow_path(follow), method: :delete, form: { style: "display:inline;" } %>
+    <% else %>
+      <%= button_to "Подписаться", follows_path(followed_id: user.id), method: :post, form: { style: "display:inline;" } %>
+    <% end %>
+  </p>
+<% end %>

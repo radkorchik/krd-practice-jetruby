@@ -1,0 +1,22 @@
+<h1>Все посты</h1>
+
+<% @posts.each do |post| %>
+  <article style="margin-bottom: 24px;">
+    <p>
+      <strong><%= post.user.username %></strong>
+      - <%= l(post.created_at, format: :short) %>
+    </p>
+    <p><%= post.caption %></p>
+    <% if post.image.attached? %>
+      <p><%= image_tag post.image, style: "max-width: 320px;" %></p>
+    <% end %>
+    <p>
+      Лайки: <%= post.likes.count %> |
+      <%= link_to "Открыть", post_path(post) %>
+      <% if post.user == current_user %>
+        | <%= link_to "Редактировать", edit_post_path(post) %>
+        | <%= button_to "Удалить", post_path(post), method: :delete, form: { style: "display:inline;" } %>
+      <% end %>
+    </p>
+  </article>
+<% end %>
